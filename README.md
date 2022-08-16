@@ -4,13 +4,13 @@ FFC gym is looking for a software application where members can quickly find and
 
 ## Access to SFDC application 
 
-Login to sandbox with the following details
-URL: test.salesforce.com
-Username: rachellindt@ffc.com
-Password: FFCgym41
+Login to sandbox with the following details: <br>
+URL: [test.salesforce.com](https://test.salesforce.com/) <br>
+Username: rachellindt@ffc.com <br>
+Password: FFCgym41 <br>
 
 
 ## Available Apps
 
-FFC Members - Search and sign up to new classes. 
+FFC Members - Search and sign up to new classes. <br>
 FFC Coach - Admin create and manage classes.
