@@ -1,0 +1,71 @@
+<template>
+    <lightning-card title="Class Information" variant="Narrow" icon-name="standard:event">
+        <div class="classForm slds-p-horizontal_small">
+
+            <!-- Class Name Field -->
+            <lightning-input type="text" variant="standard" name="Class_Name__c" value={classRecord.Class_Name__c} 
+            label="Class Name" placeholder="" onchange={handleChange} required></lightning-input> 
+
+            <lightning-combobox name="Status__c" label="Status" value={classRecord.Status__c} 
+            options={statusPicklist} onchange={handleChange} placeholder="Select Status" required>
+            </lightning-combobox>
+
+            <!-- Custom look up field for Coach__c -->
+            <c-search-component
+            onlookup={handleLookup}
+            fields-to-create={fieldsToCreate}
+            create-record=true
+            parent-a-p-i-name="Coach__c"
+            obj-name="Account"
+            display-fields="Name, Email"
+            fields = {fields}
+            show-label=true
+            label-name="Coach Name"
+            data-index={index}
+            index={index}
+            record-type-id="012Em00000008K9IAI">
+            </c-search-component>
+
+            <!-- Start Date/Time Field -->
+            <lightning-input type="datetime" variant="standard" name="Start_DateTime__c" value={classRecord.Start_DateTime__c} 
+            label="Start Date/Time" placeholder="" onchange={handleChange} ></lightning-input> 
+            <!-- End Date/Time Field -->
+            <lightning-input type="datetime" variant="standard" name="End_DateTime__c" value={classRecord.End_DateTime__c} 
+            label="End Date/Time" placeholder="" onchange={handleChange} ></lightning-input> 
+
+            <lightning-combobox name="Type__c" label="Type" value={classRecord.Type__c} 
+            options={typePicklist} onchange={handleChange} placeholder="Select Class Type">
+            </lightning-combobox>
+
+            <!-- Class Size Field -->
+            <lightning-input type="number" variant="standard" name="Class_Size__c" value={classRecord.Class_Size__c} 
+            label="Class Size" placeholder="" onchange={handleChange} ></lightning-input> 
+
+            <!-- Custom look up field for Room__c -->
+            <c-search-component
+            onlookup={handleLookup}
+            fields-to-create={roomFieldsToCreate}
+            parent-a-p-i-name="Room__c"
+            create-record=true
+            obj-name="Room__c"
+            display-fields="Name, Capacity__c"
+            fields = {roomFields}
+            show-label=true
+            label-name="Room Name"
+            data-index={index}
+            index={index}>
+            </c-search-component>
+        </div>
+
+        <!-- Buttons aligned to the right -->
+        <div class="slds-button-group slds-m-around_small" role="group">
+            <div>
+            <button class="slds-button slds-button_neutral" onclick={cancelButton}>Cancel</button>
+            </div>
+            <div>
+            <button class="slds-button slds-button_brand" onclick={saveButton}>Save</button>
+            </div>
+        </div>
+    </lightning-card>
+    
+</template>

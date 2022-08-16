@@ -1,0 +1,51 @@
+<template>
+<lightning-card  variant="Narrow"  title="Class Details" icon-name="standard:event">
+    <div class="slds-m-around_small">
+    <lightning-tabset variant="scoped" active-tab-value="Class">
+        <lightning-tab label="Class Details" value="Class">
+            <div class="slds-m-around_small">
+                <lightning-record-form
+                    record-id={recordId}
+                    layout-type="Full"
+                    columns="2"
+                    mode="readonly"
+                    object-api-name="Class__c"
+                ></lightning-record-form>
+            </div>
+        </lightning-tab>
+        <lightning-tab label="Coach Details" value="Coach" onactive={coachTabHandler}>
+            <template if:true={coachList}>
+            <lightning-datatable
+                key-field="id"
+                data={coachList}
+                columns={columnsList}
+                hide-checkbox-column
+                >
+            </lightning-datatable>
+            </template>
+            <template if:false={errors}>
+                <template if:false={coachList}>
+                    No coach has been assigned to this class yet! 
+                </template>
+            </template>
+        </lightning-tab>
+        <lightning-tab label="Signed Up Members" value="Members" onactive={memberTabHandler}>
+            <template if:true={memberList}>
+                <lightning-datatable
+                    key-field="id"
+                    data={memberList}
+                    columns={columnsList}
+                    hide-checkbox-column
+                    >
+                </lightning-datatable>
+                </template>
+                <template if:false={errors}>
+                    <template if:false={memberList}>
+                        No members have been signed up to this class yet!
+                    </template>
+                </template>
+        </lightning-tab>
+    </lightning-tabset>
+    </div>
+</lightning-card>
+</template>
