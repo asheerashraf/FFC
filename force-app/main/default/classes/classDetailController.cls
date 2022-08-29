@@ -38,8 +38,6 @@ public with sharing class classDetailController {
         return classList;
     }
 
-
-
     //gets list of coaches assigned to a class
     @AuraEnabled
     public static List<Class__c> getCoach(String classId){
@@ -52,7 +50,7 @@ public with sharing class classDetailController {
         return coachList;
     }
 
-    //gets list of upcoming class
+    /*gets list of upcoming class (old)
     @AuraEnabled
     public static List<Class__c> getClasses(){
         DateTime today = datetime.now();
@@ -63,5 +61,36 @@ public with sharing class classDetailController {
                         WITH SECURITY_ENFORCED];
 
         return classList;
-    }
+    } */
+
+        //gets list of upcoming class
+        @AuraEnabled
+        public static List<sObject> getClassesFilter(String className, DateTime startDate){
+            DateTime today = datetime.now();
+            List<String> condition = new List<String>();
+            String whereC = ' ';
+
+            //Query class date starting today and after
+            if(startDate < today){
+                condition.add('Start_DateTime__c >= :today');
+            }else{
+                condition.add('Start_DateTime__c >= :startDate');
+            }
+            
+            //Query class by Name
+            if(!String.isEmpty(className)){
+                String classNameSearch = '%'+className+'%';
+                condition.add('Class_Name__c LIKE :classNameSearch');
+            }
+
+            if(condition.size() > 0){
+                whereC = ' WHERE '+String.join( condition, ' AND ' );
+            }
+             
+            String query = 'SELECT Id, Name, Class_Name__c, Room__r.Name, Spaces_Left__c, '+ 
+                            'Start_DateTime__c, Coach__r.Name, End_DateTime__c ' +
+                            'FROM Class__c' + whereC + ' WITH SECURITY_ENFORCED';
+
+            return Database.query(query);
+        }
 }

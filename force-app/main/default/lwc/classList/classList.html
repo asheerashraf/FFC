@@ -1,13 +1,22 @@
 <template>
-    <lightning-card  variant="Narrow"  title="Upcoming Classes" icon-name="standard:event">
+    <lightning-card  variant="Narrow"  title="Class Sign Up" icon-name="standard:key_dates">
         <div class="slds-m-around_small">
             <template if:true={errors}>
                 There seems to be an error. Check console log to view error message.
             </template>
         </div>
         <div class="slds-m-around_small">
+
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-gutters">
+                <div class="slds-col slds-size_6-of-12">
+                    <p><strong>Filter By:</strong></p>
             <lightning-input type="text" label="Class Name" onkeyup={handleSearch}></lightning-input>
-            <lightning-input type="datetime" label="Class Start Time" onchange={handleStartDateTime}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="datetime" label="Class starting from today onwards" min={today} onchange={handleStartDateTime}></lightning-input>
+                </div>
+            </div>
+            
 
         </div>
         <div class="slds-m-around_small">
@@ -16,7 +25,8 @@
                 key-field="id"
                 data={dataListDisplay}
                 hide-checkbox-column    
-                columns={columnsList}>
+                columns={columnsList}
+                onrowaction={joinClass}>
             </lightning-datatable>
             </template>
 
