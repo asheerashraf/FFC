@@ -1,0 +1,29 @@
+<template>
+    <lightning-card  variant="Narrow"  title="My Classes" icon-name="custom:custom48">
+        <div class="slds-m-around_small">
+            <lightning-accordion allow-multiple-sections-open active-section-name="Upcoming Classes">
+                <lightning-accordion-section name="Upcoming Classes" label="Upcoming Classes">
+                        <template if:true={dataUpcomingList}>
+                            <lightning-datatable
+                            key-field="id"
+                            data={dataUpcomingList}
+                            hide-checkbox-column    
+                            columns={columnsList}>
+                        </lightning-datatable>
+                        </template>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="Past" label="Past Classes">
+                    <template if:true={dataPastListDisplay}>
+                        <lightning-datatable
+                        key-field="id"
+                        data={dataPastListDisplay}
+                        hide-checkbox-column    
+                        columns={columnsList}>
+                    </lightning-datatable>
+                    </template>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </lightning-card>
+    
+</template>

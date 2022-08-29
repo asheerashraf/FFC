@@ -160,12 +160,11 @@ export default class ClassList extends LightningElement {
 
             //set delay time before data table refreshes
             clearTimeout(this.timeoutId); 
-            this.timeoutId = setTimeout(this.refreshComponent.bind(this), 200); 
+            this.timeoutId = setTimeout(this.refreshComponent.bind(this), 0); 
         }).catch(error=>{
             window.console.log('error message', error, 'sticky');
         
             if(error.body.output.errors.length >0){
-                // this.showToast('Error', "wtf" , 'error' );
                 this.err1 = `${error.body.output.errors[0].message}`;
 
                 this.showToast(this.err1, '' , 'error', 'sticky' );
